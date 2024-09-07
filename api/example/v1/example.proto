@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package example.v1;
+
+import "google/api/annotations.proto";
+
+import "validate/validate.proto";
+
+import "openapiv3/annotations.proto";
+
+import "google/protobuf/wrappers.proto";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/it-sgn/sgn-layout/api/example/v1";
+
+option (openapi.v3.document) = {
+    info: {
+        title: "Sample Service",
+        version: "0.0.1",
+        contact: {
+            name: "fuadhs",
+            url: "https://github.com/it-sgn",
+            email: "fuadhasan2@gmail.com"
+        },
+        description: "Sample Service";
+    },
+};
+
+// Sample Service
+service ExampleService {
+    // List
+    rpc GetExampleList(GetExampleListReq) returns(GetExampleListPageRes){
+        option (google.api.http) = { 
+            get:"/example"  
+        };
+    };
+
+    // Details
+    rpc GetExample(ExampleIdReq) returns(Example){
+        option (google.api.http) = { 
+            get:"/example/{id}"  
+        };
+    };  
+
+    // create
+    rpc CreateExample(CreateExampleReq) returns(Example){
+        option (google.api.http) = { 
+            post:"/example"  
+            body:"*"
+        };
+    };
+
+    // renew
+    rpc UpdateExample(UpdateExampleReq) returns(google.protobuf.Empty){
+        option (google.api.http) = { 
+            put:"/example"  
+            body:"*"
+        };
+    };
+
+    // delete
+    rpc DeleteExample(ExampleIdReq) returns(google.protobuf.Empty){
+        option (google.api.http) = { 
+            delete:"/example"  
+        };
+    };
+
+    // recover
+    rpc RecoverExample(ExampleIdReq) returns(google.protobuf.Empty){
+        option (google.api.http) = { 
+            patch:"/example"  
+            body:"*"
+        };
+    };
+}
+
+// Request - Update
+message UpdateExampleReq {
+    // Primary key id
+    int64 id = 1 [
+        (validate.rules).int64.gt = 0
+    ];
+    // name
+    string name = 2 [
+        (validate.rules).string = {min_len: 1, max_len: 60}
+    ];
+    // state
+    bool status = 3;
+}
+
+// Request - Create
+message CreateExampleReq {
+    // name
+    string name = 1 [
+        (validate.rules).string = {min_len: 1, max_len: 60}
+    ];
+    bool status =2;
+}
+
+// Response - Sample message
+message Example {
+    // Primary key id
+    int64 id = 1;
+    // name
+    string name = 2;
+    // state
+    bool status = 3;
+    // Creation time
+    string created_at = 4;
+    // Update time
+    string updated_at = 5;
+    // Delete time
+    string deleted_at = 6;
+}
+
+// Response - Pagination
+message  GetExampleListPageRes {
+    // total
+    int64 total = 1;
+    // List
+    repeated Example list = 2;
+}
+
+// Requests - Paginated List
+message  GetExampleListReq {
+    // Primary key id
+    int64 page = 1 [
+        (validate.rules).int64.gt = 0
+    ];
+
+    // Page Records
+    int64 pageSize = 2 [
+        (validate.rules).int64.gt = 0
+    ];
+
+    // name
+    string name = 3;
+    // Status true normal false frozen
+	google.protobuf.BoolValue status = 4;
+    // Delete
+    google.protobuf.BoolValue is_deleted = 5;
+    // Creation start time
+    string created_at_start = 6;
+    // Creation end time
+    string created_at_end = 7;
+}
+
+// Request - Primary key id
+message ExampleIdReq {
+    // Primary key id
+    int64 id = 1;
+}
