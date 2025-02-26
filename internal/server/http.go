@@ -22,9 +22,9 @@ func NewHTTPServer(conf *conf.Bootstrap, server *conf.Server, service *service.E
 			recovery.Recovery(),
 			validate.Validator(),
 			metadata.Server(),
-			// 访问日志
+			// access log
 			logging.Server(logger),
-			// 租户
+			// tenant
 			requestInfo.SetRequestInfo(),
 		),
 	}

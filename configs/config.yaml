@@ -15,8 +15,8 @@ data:
     driver: mysql
     source: root:root@tcp(127.0.0.1:3306)/example?parseTime=true&collation=utf8mb4_unicode_ci&loc=Asia%2FShanghai&charset=utf8mb4
   redis:
-    addr: 127.0.0.1:6379
-    password:
+    addr: 192.168.90.5:6379
+    password: admin123
     read_timeout: 0.2s
     write_timeout: 0.2s
     prefix: "example_"
