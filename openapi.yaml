@@ -1,0 +1,210 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Sample service
+    description: Sample service
+    contact:
+        name: your name
+    version: 0.0.1
+paths:
+    /example:
+        get:
+            tags:
+                - ExampleService
+            description: list
+            operationId: ExampleService_GetExampleList
+            parameters:
+                - name: page
+                  in: query
+                  description: primary key id
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Number of page records
+                  schema:
+                    type: string
+                - name: name
+                  in: query
+                  description: name
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: Status true normal false frozen
+                  schema:
+                    type: boolean
+                - name: isDeleted
+                  in: query
+                  description: Whether to delete
+                  schema:
+                    type: boolean
+                - name: createdAtStart
+                  in: query
+                  description: Creation start time
+                  schema:
+                    type: string
+                - name: createdAtEnd
+                  in: query
+                  description: Creation end time
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/example.v1.GetExampleListPageRes'
+        put:
+            tags:
+                - ExampleService
+            description: renew
+            operationId: ExampleService_UpdateExample
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/example.v1.UpdateExampleReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+        post:
+            tags:
+                - ExampleService
+            description: create
+            operationId: ExampleService_CreateExample
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/example.v1.CreateExampleReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/example.v1.Example'
+        delete:
+            tags:
+                - ExampleService
+            description: delete
+            operationId: ExampleService_DeleteExample
+            parameters:
+                - name: id
+                  in: query
+                  description: primary key id
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+        patch:
+            tags:
+                - ExampleService
+            description: recover
+            operationId: ExampleService_RecoverExample
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/example.v1.ExampleIdReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /example/{id}:
+        get:
+            tags:
+                - ExampleService
+            description: Details
+            operationId: ExampleService_GetExample
+            parameters:
+                - name: id
+                  in: path
+                  description: primary key id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/example.v1.Example'
+components:
+    schemas:
+        example.v1.CreateExampleReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: name
+                status:
+                    type: boolean
+            description: Request - Create
+        example.v1.Example:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: primary key id
+                name:
+                    type: string
+                    description: name
+                status:
+                    type: boolean
+                    description: state
+                createdAt:
+                    type: string
+                    description: creation time
+                updatedAt:
+                    type: string
+                    description: Update time
+                deletedAt:
+                    type: string
+                    description: Delete time
+            description: Response - Sample message
+        example.v1.ExampleIdReq:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: primary key id
+            description: Request - Primary key id
+        example.v1.GetExampleListPageRes:
+            type: object
+            properties:
+                total:
+                    type: string
+                    description: total
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/example.v1.Example'
+                    description: list
+            description: Response - Pagination
+        example.v1.UpdateExampleReq:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: primary key id
+                name:
+                    type: string
+                    description: name
+                status:
+                    type: boolean
+                    description: state
+            description: Request - Update
+tags:
+    - name: ExampleService

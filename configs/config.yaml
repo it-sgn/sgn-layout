@@ -1,0 +1,25 @@
+service:
+  name: example
+  version: v1
+env:
+  mode: prod
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 10s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 10s
+data:
+  database:
+    driver: postgres
+    # source: root:admin123@tcp(192.168.1.220:3306)/devdb?parseTime=true&collation=utf8mb4_unicode_ci&loc=Asia%2FShanghai&charset=utf8mb4
+    source: "host=192.168.1.220 user=admin password=admin123 dbname=devdb port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+  redis:
+    addr: 192.168.1.220:6379
+    password:
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+    prefix: "sgn_"
+trace:
+  endpoint: http://192.168.1.220:14268/api/traces
