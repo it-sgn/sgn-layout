@@ -40,7 +40,7 @@ func SetRequestInfo() middleware.Middleware {
 				}
 			}
 
-			// 获取请求域
+			// Get request domain
 			ctx = metadata.AppendToClientContext(ctx, DomainKey, domain)
 			ctx = context.WithValue(ctx, DomainKey, domain)
 			return handler(ctx, req)

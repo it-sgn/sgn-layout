@@ -22,11 +22,11 @@ func NewGRPCServer(c *conf.Server, service *service.ExampleService, logger log.L
 			validate.Validator(),
 			recovery.Recovery(),
 			metadata.Server(),
-			// 链路追踪
+			// link tracing
 			tracing.Server(),
-			// 访问日志
+			// access log
 			logging.Server(logger),
-			// 租户
+			// tenant
 			requestInfo.SetRequestInfo(),
 		),
 	}
