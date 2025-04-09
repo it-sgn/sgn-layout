@@ -1,43 +1,41 @@
-# kbk-layout
-方便快速启动服务， 统一项目模板，三键生成微服务
+# sgn-layout
+Convenient and quick service startup, unified project template, three-key generation of microservices
 
-# 1.创建项目指定模板
-假设项目目录为projectName
+# 1. Create a project-specific template
+Assume the project directory is projectName
 
 ```
-kratos new $(projectName) -r git@github.com:ZQCard/kbk-layout.git
+kratos new $(projectName) -r git@github.com:itsgn/sgn-layout.git
 ```
-# 2.初始化项目package
-此处的projectName的值需要与第一步保持一致
+# 2. Initialize the project package
+The value of projectName here needs to be consistent with the first step
 ```
 make initProject PROJECT=$(projectName)
 ```
-# 3.初始化项目服务
+# 3.Initialize project services
 ```
 make initNewService ServiceUpperName=Store ServiceLowerName=store
 ```
 
-# 总结
-以上操作将生成目录为 projectName, 包含服务名称为StoreService的crud服务。
-
-* db: mysql, orm: gorm
+# Summary
+The above operation will generate a directory named projectName, containing a crud service named StoreService.
+* db: postgresql, orm: gorm
 * cache:redis
 * trace:jaeger
 * registry && discovery: etcd
-* log: kratos/v2/log json格式
+* log: kratos/v2/log json format
 * validate: protoc-gen-validate
 
 
-pkg/utils: 常用函数包
+pkg/utils: Commonly used function packages
+# Other notes
 
-# 其他注意事项
+0. If the environment is set to dev, it is a development environment. You can set rules based on this variable, such as debug mode, print sql
 
-0. 环境设置为dev，则为开发环境，可以根据该变量设定规则， 如 debug模式,打印sql
+1. Integer values ​​are all int64. When converting proto to json, the int64 type will be converted to string type due to precision issues
 
-1. 整形数值类型均用int64， proto转json的时候由于精度问题，会将int64类型转为string类型
-
-2. 接口文档在openapi.yaml中
-3. 本地开发以及docker部署文件为configs/config-dev.yaml,可在Dockerfile中自行更改
+2. The interface document is in openapi.yaml
+3. The local development and docker deployment files are configs/config-dev.yaml, which can be changed in Dockerfile
 
 
 
